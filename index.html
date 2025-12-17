@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Assistant by Nouha</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif,'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            color: #667eea;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .icon {
+            font-size: 2rem;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 120px;
+            transition: border-color 0.3s ease;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        .result.show {
+            display: block;
+        }
+
+        .result h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .result p {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .error {
+            background: #fee;
+            border-left: 4px solid #f44;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            color: #c33;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1> AI Assistant by Nouha</h1>
+            <p class="subtitle">Powered by Gemini</p>
+        </header>
+
+        <div class="cards">
+            <div class="card">
+                <h2 class="card-title">
+                    <span class="icon">📝</span>
+                    Summarize Text
+                </h2>
+                <textarea id="summarizeInput" placeholder="Paste your long text here to get a concise summary..."></textarea>
+                <button onclick="summarizeText()">
+                    <span id="summarizeBtn">Summarize</span>
+                </button>
+                <div id="summarizeResult" class="result"></div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title">
+                    <span class="icon">💬</span>
+                    Ask AI
+                </h2>
+                <textarea id="askInput" placeholder="Ask me anything..."></textarea>
+                <button onclick="askQuestion()">
+                    <span id="askBtn">Ask Question</span>
+                </button>
+                <div id="askResult" class="result"></div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title">
+                    <span class="icon">🔍</span>
+                    Analyze Item
+                </h2>
+                <input type="number" id="itemId" placeholder="Enter item ID (e.g., 1, 2, 3)" min="1">
+                <button onclick="analyzeItem()">
+                    <span id="analyzeBtn">Analyze</span>
+                </button>
+                <div id="analyzeResult" class="result"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:5500/api';
+
+        async function summarizeText() {
+            const text = document.getElementById('summarizeInput').value;
+            const resultDiv = document.getElementById('summarizeResult');
+            const btn = document.getElementById('summarizeBtn');
+
+            if (!text.trim()) {
+                showError(resultDiv, 'Please enter some text to summarize');
+                return;
+            }
+
+            btn.innerHTML = '<span class="loading"></span>';
+            resultDiv.classList.remove('show');
+
+            try {
+                const response = await fetch(`${API_URL}/ai/summarize`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    resultDiv.innerHTML = `
+                        <h3>Summary</h3>
+                        <p>${data.summary}</p>
+                        <p style="margin-top: 10px; font-size: 0.9rem; color: #666;">
+                            Original: ${data.originalLength} chars → Summary: ${data.summaryLength} chars
+                        </p>
+                    `;
+                    resultDiv.classList.add('show');
+                } else {
+                    showError(resultDiv, data.error || 'Failed to summarize text');
+                }
+            } catch (error) {
+                showError(resultDiv, 'Network error. Make sure your server is running.');
+            }
+
+            btn.innerHTML = 'Summarize';
+        }
+
+        async function askQuestion() {
+            const question = document.getElementById('askInput').value;
+            const resultDiv = document.getElementById('askResult');
+            const btn = document.getElementById('askBtn');
+
+            if (!question.trim()) {
+                showError(resultDiv, 'Please enter a question');
+                return;
+            }
+
+            btn.innerHTML = '<span class="loading"></span>';
+            resultDiv.classList.remove('show');
+
+            try {
+                const response = await fetch(`${API_URL}/ai/ask`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ question })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    resultDiv.innerHTML = `
+                        <h3>Answer</h3>
+                        <p>${data.answer}</p>
+                    `;
+                    resultDiv.classList.add('show');
+                } else {
+                    showError(resultDiv, data.error || 'Failed to get answer');
+                }
+            } catch (error) {
+                showError(resultDiv, 'Network error. Make sure your server is running.');
+            }
+
+            btn.innerHTML = 'Ask Question';
+        }
+
+        async function analyzeItem() {
+            const id = document.getElementById('itemId').value;
+            const resultDiv = document.getElementById('analyzeResult');
+            const btn = document.getElementById('analyzeBtn');
+
+            if (!id) {
+                showError(resultDiv, 'Please enter an item ID');
+                return;
+            }
+
+            btn.innerHTML = '<span class="loading"></span>';
+            resultDiv.classList.remove('show');
+
+            try {
+                const response = await fetch(`${API_URL}/ai/analyze-item`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id: parseInt(id) })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    resultDiv.innerHTML = `
+                        <h3>Original Item</h3>
+                        <p><strong>ID:</strong> ${data.original.id}</p>
+                        <p><strong>Name:</strong> ${data.original.name}</p>
+                        <p><strong>Description:</strong> ${data.original.description}</p>
+                        <h3 style="margin-top: 20px;">AI Improvement</h3>
+                        <p>${data.improved}</p>
+                    `;
+                    resultDiv.classList.add('show');
+                } else {
+                    showError(resultDiv, data.error || 'Failed to analyze item');
+                }
+            } catch (error) {
+                showError(resultDiv, 'Network error. Make sure your server is running.');
+            }
+
+            btn.innerHTML = 'Analyze';
+        }
+
+        function showError(element, message) {
+            element.innerHTML = `<div class="error">${message}</div>`;
+            element.classList.add('show');
+        }
+    </script>
+</body>
+</html>
