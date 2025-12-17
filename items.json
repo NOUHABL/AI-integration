@@ -1,0 +1,71 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "name": "Laptop",
+      "description": "A computer"
+    },
+    {
+      "id": 2,
+      "name": "Phone",
+      "description": "Mobile device"
+    },
+    {
+      "id": 3,
+      "name": "Headphones",
+      "description": "Audio device"
+    },
+  { "id": 4, "name": "Keyboard", "description": "Typing input device" },
+
+  { "id": 5, "name": "Mouse", "description": "Pointing device" },
+  { "id": 6, "name": "Monitor", "description": "Display screen" },
+  { "id": 7, "name": "Printer", "description": "Document printing device" },
+  { "id": 8, "name": "Scanner", "description": "Document scanning device" },
+  { "id": 9, "name": "Webcam", "description": "Video capture device" },
+  { "id": 10, "name": "Speaker", "description": "Sound output device" },
+
+  { "id": 11, "name": "Tablet", "description": "Touchscreen portable device" },
+  { "id": 12, "name": "Smartwatch", "description": "Wearable smart device" },
+  { "id": 13, "name": "Router", "description": "Network routing device" },
+  { "id": 14, "name": "Modem", "description": "Internet connection device" },
+  { "id": 15, "name": "USB Drive", "description": "Portable storage device" },
+  { "id": 16, "name": "External Hard Drive", "description": "External data storage" },
+  { "id": 17, "name": "Power Bank", "description": "Portable battery charger" },
+  { "id": 18, "name": "Camera", "description": "Digital photo device" },
+  { "id": 19, "name": "Microphone", "description": "Audio input device" },
+  { "id": 20, "name": "Projector", "description": "Image projection device" },
+
+  { "id": 21, "name": "Game Console", "description": "Video gaming system" },
+  { "id": 22, "name": "Controller", "description": "Gaming input device" },
+  { "id": 23, "name": "VR Headset", "description": "Virtual reality device" },
+  { "id": 24, "name": "Smart TV", "description": "Internet-enabled television" },
+  { "id": 25, "name": "Streaming Stick", "description": "Media streaming device" },
+  { "id": 26, "name": "Graphics Card", "description": "Video processing hardware" },
+  { "id": 27, "name": "Motherboard", "description": "Main computer board" },
+  { "id": 28, "name": "Processor", "description": "Central processing unit" },
+  { "id": 29, "name": "RAM", "description": "Temporary memory component" },
+  { "id": 30, "name": "SSD", "description": "Solid-state storage device" },
+
+  { "id": 31, "name": "Cooling Fan", "description": "Temperature control device" },
+  { "id": 32, "name": "Power Supply", "description": "Electrical power unit" },
+  { "id": 33, "name": "Smart Light", "description": "Connected lighting device" },
+  { "id": 34, "name": "Smart Plug", "description": "Remote power control device" },
+  { "id": 35, "name": "Security Camera", "description": "Surveillance device" },
+  { "id": 36, "name": "Door Sensor", "description": "Entry detection device" },
+  { "id": 37, "name": "Thermostat", "description": "Temperature control system" },
+  { "id": 38, "name": "Smoke Detector", "description": "Fire safety device" },
+  { "id": 39, "name": "Alarm Clock", "description": "Time alert device" },
+  { "id": 40, "name": "Calculator", "description": "Mathematical computation device" },
+
+  { "id": 41, "name": "E-reader", "description": "Digital reading device" },
+  { "id": 42, "name": "Stylus Pen", "description": "Touch input tool" },
+  { "id": 43, "name": "Docking Station", "description": "Peripheral connection hub" },
+  { "id": 44, "name": "Network Switch", "description": "Network traffic device" },
+  { "id": 45, "name": "NAS", "description": "Network storage system" },
+  { "id": 46, "name": "Barcode Scanner", "description": "Code scanning device" },
+  { "id": 47, "name": "POS Terminal", "description": "Point of sale system" },
+  { "id": 48, "name": "UPS", "description": "Backup power supply" },
+  { "id": 49, "name": "RFID Reader", "description": "Wireless tag reader" },
+  { "id": 50, "name": "Smart Scale", "description": "Connected weight measurement device" }
+  ]
+}
